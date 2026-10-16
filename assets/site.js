@@ -36,8 +36,10 @@ function setupHomeCarousel(total) {
   let timer;
   let pointerStart = 0;
   let scrollStart = 0;
+  let dragDistance = 0;
   let dragged = false;
   let pointerDown = false;
+  let pressedLink = null;
 
   const update = (index, shouldScroll = true) => {
     active = (index + total) % total;
@@ -69,7 +71,9 @@ function setupHomeCarousel(total) {
     pointerDown = true;
     pointerStart = event.clientX;
     scrollStart = track.scrollLeft;
+    dragDistance = 0;
     dragged = false;
+    pressedLink = event.target.closest('.pv-work-card');
     track.setPointerCapture(event.pointerId);
     track.classList.add('is-dragging');
     window.clearInterval(timer);
@@ -77,7 +81,8 @@ function setupHomeCarousel(total) {
   track.addEventListener('pointermove', (event) => {
     if (!pointerDown || !track.hasPointerCapture(event.pointerId)) return;
     const delta = event.clientX - pointerStart;
-    if (Math.abs(delta) > 5) dragged = true;
+    dragDistance = Math.max(dragDistance, Math.abs(delta));
+    if (dragDistance > 5) dragged = true;
     if (dragged) event.preventDefault();
     track.scrollLeft = scrollStart - delta;
   });
@@ -85,6 +90,12 @@ function setupHomeCarousel(total) {
     if (!pointerDown) return;
     pointerDown = false;
     const delta = event.clientX - pointerStart;
+    const totalMovement = Math.max(
+      dragDistance,
+      Math.abs(delta),
+      Math.abs(track.scrollLeft - scrollStart)
+    );
+    const shouldOpen = !cancelled && totalMovement <= 5 && pressedLink;
     const threshold = Math.min(80, track.clientWidth * .08);
     const direction = delta < 0 ? 1 : -1;
     track.classList.remove('is-dragging');
@@ -94,11 +105,20 @@ function setupHomeCarousel(total) {
       : Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
     update(target);
     restart();
+    if (shouldOpen) window.location.assign(pressedLink.href);
+    pressedLink = null;
   };
   track.addEventListener('pointerup', (event) => finishDrag(event));
   track.addEventListener('pointercancel', (event) => finishDrag(event, true));
   track.addEventListener('lostpointercapture', (event) => {
     if (pointerDown) finishDrag(event, true);
+  });
+  track.addEventListener('click', (event) => {
+    event.preventDefault();
+  }, true);
+  track.addEventListener('keydown', (event) => {
+    const link = event.target.closest('.pv-work-card');
+    if (link && event.key === 'Enter') window.location.assign(link.href);
   });
   window.addEventListener('resize', () => update(active, false), { passive: true });
   document.addEventListener('visibilitychange', () => document.hidden ? window.clearInterval(timer) : restart());
