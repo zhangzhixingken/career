@@ -38,7 +38,7 @@ function setupHomeCarousel(total) {
   let scrollStart = 0;
   let dragged = false;
   let pointerDown = false;
-  let suppressClick = false;
+  let clickBlockedUntil = 0;
 
   const update = (index, shouldScroll = true) => {
     active = (index + total) % total;
@@ -93,10 +93,9 @@ function setupHomeCarousel(total) {
     const target = !cancelled && Math.abs(delta) >= threshold
       ? active + direction
       : Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
-    suppressClick = dragged;
+    clickBlockedUntil = dragged ? performance.now() + 350 : 0;
     update(target);
     restart();
-    window.setTimeout(() => { suppressClick = false; dragged = false; }, 0);
   };
   track.addEventListener('pointerup', (event) => finishDrag(event));
   track.addEventListener('pointercancel', (event) => finishDrag(event, true));
@@ -104,7 +103,8 @@ function setupHomeCarousel(total) {
     if (pointerDown) finishDrag(event, true);
   });
   track.addEventListener('click', (event) => {
-    if (!suppressClick) return;
+    if (performance.now() > clickBlockedUntil) return;
+    clickBlockedUntil = 0;
     event.preventDefault();
     event.stopPropagation();
   }, true);
