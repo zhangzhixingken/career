@@ -18,8 +18,71 @@ function home() {
     ['Brewing Shanghai', 'product design', 'assets/pv/brewing-shanghai.jpg', '/visual-design.html#branding'],
     ['commercial photography', 'photography', 'assets/pv/commercial-photography.jpg', '/photography.html#institutional']
   ];
-  const cards = featured.map(([title, discipline, image, href]) => `<a class="pv-work-card" href="${href}"><img class="pv-work-image" src="${image}" alt=""><span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></a>`).join('');
-  $('#app').innerHTML = `<main class="pv-home">${nav()}<section class="pv-work-list" aria-label="Selected career work">${cards}</section></main>`;
+  const cards = featured.map(([title, discipline, image, href], index) => `<a class="pv-work-card" href="${href}" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media"><img class="pv-work-image" src="${image}" alt="${title}"><span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`).join('');
+  const progress = featured.map(([, , ,], index) => `<button class="pv-progress-step${index === 0 ? ' is-active' : ''}" type="button" data-slide-target="${index}" aria-label="Show project ${index + 1}"><span></span></button>`).join('');
+  $('#app').innerHTML = `<main class="pv-home">${nav()}<section class="pv-carousel-shell" aria-label="Selected career work"><div class="pv-work-list" tabindex="0">${cards}</div><div class="pv-carousel-footer"><span class="pv-carousel-count">01 / ${String(featured.length).padStart(2, '0')}</span><div class="pv-progress">${progress}</div><span class="pv-carousel-hint">Drag / Swipe</span></div></section></main>`;
+  setupHomeCarousel(featured.length);
+}
+
+function setupHomeCarousel(total) {
+  const track = $('.pv-work-list');
+  const slides = [...document.querySelectorAll('.pv-work-card')];
+  const steps = [...document.querySelectorAll('.pv-progress-step')];
+  const count = $('.pv-carousel-count');
+  let active = 0;
+  let timer;
+  let pointerStart = 0;
+  let scrollStart = 0;
+  let dragged = false;
+
+  const update = (index, shouldScroll = true) => {
+    active = (index + total) % total;
+    steps.forEach((step, i) => {
+      step.classList.remove('is-active');
+      step.setAttribute('aria-current', i === active ? 'true' : 'false');
+    });
+    void steps[active].offsetWidth;
+    steps[active].classList.add('is-active');
+    count.textContent = `${String(active + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+    if (shouldScroll) track.scrollTo({ left: active * track.clientWidth, behavior: 'smooth' });
+  };
+
+  const restart = () => {
+    window.clearInterval(timer);
+    timer = window.setInterval(() => update(active + 1), 6000);
+  };
+
+  steps.forEach((step, i) => step.addEventListener('click', () => { update(i); restart(); }));
+  track.addEventListener('scroll', () => {
+    window.requestAnimationFrame(() => {
+      const index = Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
+      if (index !== active) { update(index, false); restart(); }
+    });
+  }, { passive: true });
+  track.addEventListener('pointerdown', (event) => {
+    pointerStart = event.clientX;
+    scrollStart = track.scrollLeft;
+    dragged = false;
+    track.setPointerCapture(event.pointerId);
+    track.classList.add('is-dragging');
+    window.clearInterval(timer);
+  });
+  track.addEventListener('pointermove', (event) => {
+    if (!track.hasPointerCapture(event.pointerId)) return;
+    const delta = event.clientX - pointerStart;
+    if (Math.abs(delta) > 6) dragged = true;
+    track.scrollLeft = scrollStart - delta;
+  });
+  track.addEventListener('pointerup', (event) => {
+    if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+    track.classList.remove('is-dragging');
+    update(Math.round(track.scrollLeft / Math.max(track.clientWidth, 1)));
+    restart();
+  });
+  slides.forEach((slide) => slide.addEventListener('click', (event) => { if (dragged) event.preventDefault(); }));
+  window.addEventListener('resize', () => update(active, false), { passive: true });
+  document.addEventListener('visibilitychange', () => document.hidden ? window.clearInterval(timer) : restart());
+  restart();
 }
 
 const groups = {

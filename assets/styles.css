@@ -332,16 +332,28 @@ body.career-home { background: #eeeae9; color: #161413; }
 .portfolio-nav .nav-instagram::before { content: ""; position: absolute; inset: 3px; border: 1px solid #161413; border-radius: 50%; }
 .portfolio-nav .nav-instagram::after { content: ""; position: absolute; top: 2px; right: 2px; width: 2px; height: 2px; border-radius: 50%; background: #161413; }
 .portfolio-nav .nav-instagram-icon { display: none; }
-.pv-work-list { width: 77.85vw; margin: 0 auto; padding: 101px 0 8vw; }
-.pv-work-card { position: relative; display: block; width: 100%; aspect-ratio: 1.86 / 1; margin-bottom: 3.85vw; overflow: hidden; background: #d8d2cf; }
-.pv-work-card:last-child { margin-bottom: 0; }
-.pv-work-image { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.15s cubic-bezier(.2,.8,.2,1); }
+.pv-carousel-shell { height: 100svh; min-height: 620px; overflow: hidden; background: #eeeae9; }
+.pv-work-list { width: 100vw; height: calc(100svh - 64px); min-height: 556px; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab; touch-action: pan-y; }
+.pv-work-list::-webkit-scrollbar { display: none; }
+.pv-work-list.is-dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
+.pv-work-card { position: relative; flex: 0 0 100vw; width: 100vw; height: 100%; display: block; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; background: #d8d2cf; user-select: none; }
+.pv-work-media { position: absolute; inset: 0; display: block; overflow: hidden; }
+.pv-work-image { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: transform 1.15s cubic-bezier(.2,.8,.2,1); }
 .pv-work-shade { position: absolute; inset: 0; background: rgba(0,0,0,.06); transition: background-color .7s ease; }
-.pv-work-copy { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; text-shadow: 0 1px 12px rgba(0,0,0,.16); }
+.pv-work-copy { position: absolute; inset: 80px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; text-shadow: 0 1px 12px rgba(0,0,0,.16); }
 .pv-work-title { font-family: "Sorts Mill Goudy", Georgia, "Times New Roman", serif; font-size: clamp(18px,1.5vw,30px); font-weight: 400; line-height: 1; letter-spacing: .025em; }
 .pv-work-discipline { margin-top: 7px; font-family: "Sorts Mill Goudy", Georgia, "Times New Roman", serif; font-size: clamp(8px,.68vw,12px); font-weight: 400; line-height: 1; letter-spacing: .025em; }
 .pv-work-card:hover .pv-work-image { transform: scale(1.018); }
 .pv-work-card:hover .pv-work-shade { background: rgba(0,0,0,.12); }
+.pv-carousel-footer { height: 64px; padding: 0 22px; display: grid; grid-template-columns: 80px 1fr 80px; align-items: center; gap: 28px; color: #161413; font-size: 9px; line-height: 1; letter-spacing: .08em; text-transform: uppercase; }
+.pv-carousel-count { font-variant-numeric: tabular-nums; }
+.pv-carousel-hint { text-align: right; }
+.pv-progress { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.pv-progress-step { position: relative; height: 12px; padding: 0; border: 0; background: transparent; cursor: pointer; overflow: hidden; }
+.pv-progress-step::before { content: ""; position: absolute; top: 5px; right: 0; left: 0; height: 1px; background: rgba(22,20,19,.22); }
+.pv-progress-step span { position: absolute; top: 5px; left: 0; width: 0; height: 1px; background: #161413; }
+.pv-progress-step.is-active span { animation: pv-progress-fill 6s linear forwards; }
+@keyframes pv-progress-fill { from { width: 0; } to { width: 100%; } }
 
 @media (max-width: 840px) {
   .portfolio-nav { height: 52px !important; padding: 0 16px !important; display: flex !important; justify-content: space-between; }
@@ -349,10 +361,13 @@ body.career-home { background: #eeeae9; color: #161413; }
   .portfolio-nav .nav-links { gap: 12px; }
   .portfolio-nav .nav-links a { font-size: 9px; }
   .portfolio-nav .nav-docs { display: none; }
-  .pv-work-list { width: calc(100vw - 48px); padding-top: 82px; }
-  .pv-work-card { margin-bottom: 30px; }
+  .pv-work-list { width: 100vw; height: calc(100svh - 58px); min-height: 0; }
+  .pv-work-card { width: 100vw; flex-basis: 100vw; }
+  .pv-work-copy { inset: 52px 0 0; }
   .pv-work-title { font-size: clamp(18px,3.4vw,26px); }
   .pv-work-discipline { font-size: 9px; }
+  .pv-carousel-footer { height: 58px; grid-template-columns: 54px 1fr; gap: 16px; padding: 0 14px; }
+  .pv-carousel-hint { display: none; }
 }
 
 @media (max-width: 520px) {
@@ -360,7 +375,5 @@ body.career-home { background: #eeeae9; color: #161413; }
   .portfolio-nav .logo { font-size: 8.5px; }
   .portfolio-nav .nav-links { gap: 6px; }
   .portfolio-nav .nav-links a { font-size: 7.2px; letter-spacing: -.035em; }
-  .pv-work-list { width: calc(100vw - 24px); padding-top: 70px; }
-  .pv-work-card { aspect-ratio: 1.42 / 1; margin-bottom: 18px; }
   .pv-work-title { font-size: 20px; }
 }
