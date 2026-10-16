@@ -18,7 +18,7 @@ function home() {
     ['Brewing Shanghai', 'product design', 'assets/pv/brewing-shanghai.jpg', '/visual-design.html#branding'],
     ['commercial photography', 'photography', 'assets/pv/commercial-photography.jpg', '/photography.html#institutional']
   ];
-  const cards = featured.map(([title, discipline, image, href], index) => `<a class="pv-work-card" href="${href}" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media"><img class="pv-work-image" src="${image}" alt="${title}"><span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`).join('');
+  const cards = featured.map(([title, discipline, image, href], index) => `<a class="pv-work-card" href="${href}" draggable="false" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media"><img class="pv-work-image" src="${image}" alt="${title}" draggable="false"><span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`).join('');
   const progress = featured.map(([, , ,], index) => `<button class="pv-progress-step${index === 0 ? ' is-active' : ''}" type="button" data-slide-target="${index}" aria-label="Show project ${index + 1}"><span></span></button>`).join('');
   $('#app').innerHTML = `<main class="pv-home">${nav()}<section class="pv-carousel-shell" aria-label="Selected career work"><div class="pv-work-list" tabindex="0">${cards}</div><div class="pv-carousel-footer"><div class="pv-progress">${progress}</div></div></section></main>`;
   setupHomeCarousel(featured.length);
@@ -26,13 +26,14 @@ function home() {
 
 function setupHomeCarousel(total) {
   const track = $('.pv-work-list');
-  const slides = [...document.querySelectorAll('.pv-work-card')];
   const steps = [...document.querySelectorAll('.pv-progress-step')];
   let active = 0;
   let timer;
   let pointerStart = 0;
   let scrollStart = 0;
   let dragged = false;
+  let pointerDown = false;
+  let suppressClick = false;
 
   const update = (index, shouldScroll = true) => {
     active = (index + total) % total;
@@ -53,11 +54,15 @@ function setupHomeCarousel(total) {
   steps.forEach((step, i) => step.addEventListener('click', () => { update(i); restart(); }));
   track.addEventListener('scroll', () => {
     window.requestAnimationFrame(() => {
+      if (pointerDown) return;
       const index = Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
       if (index !== active) { update(index, false); restart(); }
     });
   }, { passive: true });
+  track.addEventListener('dragstart', (event) => event.preventDefault());
   track.addEventListener('pointerdown', (event) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    pointerDown = true;
     pointerStart = event.clientX;
     scrollStart = track.scrollLeft;
     dragged = false;
@@ -66,18 +71,38 @@ function setupHomeCarousel(total) {
     window.clearInterval(timer);
   });
   track.addEventListener('pointermove', (event) => {
-    if (!track.hasPointerCapture(event.pointerId)) return;
+    if (!pointerDown || !track.hasPointerCapture(event.pointerId)) return;
     const delta = event.clientX - pointerStart;
-    if (Math.abs(delta) > 6) dragged = true;
+    if (Math.abs(delta) > 5) dragged = true;
+    if (dragged) event.preventDefault();
     track.scrollLeft = scrollStart - delta;
   });
-  track.addEventListener('pointerup', (event) => {
-    if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+  const finishDrag = (event, cancelled = false) => {
+    if (!pointerDown) return;
+    pointerDown = false;
+    const delta = event.clientX - pointerStart;
+    const threshold = Math.min(80, track.clientWidth * .08);
+    const direction = delta < 0 ? 1 : -1;
     track.classList.remove('is-dragging');
-    update(Math.round(track.scrollLeft / Math.max(track.clientWidth, 1)));
+    if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+    const target = !cancelled && Math.abs(delta) >= threshold
+      ? active + direction
+      : Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
+    suppressClick = dragged;
+    update(target);
     restart();
+    window.setTimeout(() => { suppressClick = false; dragged = false; }, 0);
+  };
+  track.addEventListener('pointerup', (event) => finishDrag(event));
+  track.addEventListener('pointercancel', (event) => finishDrag(event, true));
+  track.addEventListener('lostpointercapture', (event) => {
+    if (pointerDown) finishDrag(event, true);
   });
-  slides.forEach((slide) => slide.addEventListener('click', (event) => { if (dragged) event.preventDefault(); }));
+  track.addEventListener('click', (event) => {
+    if (!suppressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
   window.addEventListener('resize', () => update(active, false), { passive: true });
   document.addEventListener('visibilitychange', () => document.hidden ? window.clearInterval(timer) : restart());
   restart();
