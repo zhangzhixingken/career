@@ -20,7 +20,7 @@ function home() {
   ];
   const cards = featured.map(([title, discipline, image, href], index) => `<a class="pv-work-card" href="${href}" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media"><img class="pv-work-image" src="${image}" alt="${title}"><span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`).join('');
   const progress = featured.map(([, , ,], index) => `<button class="pv-progress-step${index === 0 ? ' is-active' : ''}" type="button" data-slide-target="${index}" aria-label="Show project ${index + 1}"><span></span></button>`).join('');
-  $('#app').innerHTML = `<main class="pv-home">${nav()}<section class="pv-carousel-shell" aria-label="Selected career work"><div class="pv-work-list" tabindex="0">${cards}</div><div class="pv-carousel-footer"><span class="pv-carousel-count">01 / ${String(featured.length).padStart(2, '0')}</span><div class="pv-progress">${progress}</div><span class="pv-carousel-hint">Drag / Swipe</span></div></section></main>`;
+  $('#app').innerHTML = `<main class="pv-home">${nav()}<section class="pv-carousel-shell" aria-label="Selected career work"><div class="pv-work-list" tabindex="0">${cards}</div><div class="pv-carousel-footer"><div class="pv-progress">${progress}</div></div></section></main>`;
   setupHomeCarousel(featured.length);
 }
 
@@ -28,7 +28,6 @@ function setupHomeCarousel(total) {
   const track = $('.pv-work-list');
   const slides = [...document.querySelectorAll('.pv-work-card')];
   const steps = [...document.querySelectorAll('.pv-progress-step')];
-  const count = $('.pv-carousel-count');
   let active = 0;
   let timer;
   let pointerStart = 0;
@@ -43,7 +42,6 @@ function setupHomeCarousel(total) {
     });
     void steps[active].offsetWidth;
     steps[active].classList.add('is-active');
-    count.textContent = `${String(active + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
     if (shouldScroll) track.scrollTo({ left: active * track.clientWidth, behavior: 'smooth' });
   };
 

@@ -321,7 +321,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* PDF-aligned career index and shared www.zhixingzhang.com navigator */
 body.career-home { background: #eeeae9; color: #161413; }
 .pv-home { min-height: 100svh; background: #eeeae9; color: #161413; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 500; }
-.portfolio-nav { position: fixed !important; z-index: 220000 !important; inset: 0 0 auto !important; width: 100%; height: 80px !important; padding: 0 126px !important; display: grid !important; grid-template-columns: 1fr auto 1fr !important; align-items: center !important; overflow: hidden !important; background-color: rgba(238,234,233,.86) !important; background-image: none !important; backdrop-filter: blur(14px) !important; color: #161413 !important; mix-blend-mode: normal !important; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; }
+.portfolio-nav { position: fixed !important; z-index: 220000 !important; inset: 0 0 auto !important; width: 100%; height: 80px !important; padding: 0 126px !important; display: grid !important; grid-template-columns: 1fr auto 1fr !important; align-items: center !important; overflow: hidden !important; background-color: transparent !important; background-image: none !important; backdrop-filter: none !important; color: #161413 !important; mix-blend-mode: normal !important; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; }
 .portfolio-nav .logo { justify-self: start; color: #37332e; font-size: 13px; line-height: 1; letter-spacing: -.02em; text-transform: uppercase; }
 .portfolio-nav .nav-links { justify-self: center; display: flex; align-items: center; gap: 32px; margin: 0; padding: 0; list-style: none; }
 .portfolio-nav .nav-links a { position: relative; display: inline-block; color: rgba(22,20,19,.56); font-size: 11px; line-height: 1; letter-spacing: 0; text-transform: uppercase; }
@@ -345,10 +345,8 @@ body.career-home { background: #eeeae9; color: #161413; }
 .pv-work-discipline { margin-top: 7px; font-family: "Sorts Mill Goudy", Georgia, "Times New Roman", serif; font-size: clamp(8px,.68vw,12px); font-weight: 400; line-height: 1; letter-spacing: .025em; }
 .pv-work-card:hover .pv-work-image { transform: scale(1.018); }
 .pv-work-card:hover .pv-work-shade { background: rgba(0,0,0,.12); }
-.pv-carousel-footer { height: 64px; padding: 0 22px; display: grid; grid-template-columns: 80px 1fr 80px; align-items: center; gap: 28px; color: #161413; font-size: 9px; line-height: 1; letter-spacing: .08em; text-transform: uppercase; }
-.pv-carousel-count { font-variant-numeric: tabular-nums; }
-.pv-carousel-hint { text-align: right; }
-.pv-progress { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.pv-carousel-footer { height: 64px; display: flex; align-items: center; justify-content: center; color: #161413; }
+.pv-progress { width: 30vw; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .pv-progress-step { position: relative; height: 12px; padding: 0; border: 0; background: transparent; cursor: pointer; overflow: hidden; }
 .pv-progress-step::before { content: ""; position: absolute; top: 5px; right: 0; left: 0; height: 1px; background: rgba(22,20,19,.22); }
 .pv-progress-step span { position: absolute; top: 5px; left: 0; width: 0; height: 1px; background: #161413; }
@@ -366,8 +364,8 @@ body.career-home { background: #eeeae9; color: #161413; }
   .pv-work-copy { inset: 52px 0 0; }
   .pv-work-title { font-size: clamp(18px,3.4vw,26px); }
   .pv-work-discipline { font-size: 9px; }
-  .pv-carousel-footer { height: 58px; grid-template-columns: 54px 1fr; gap: 16px; padding: 0 14px; }
-  .pv-carousel-hint { display: none; }
+  .pv-carousel-footer { height: 58px; }
+  .pv-progress { width: 30vw; }
 }
 
 @media (max-width: 520px) {
