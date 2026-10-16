@@ -12,6 +12,7 @@ const card = ([title, meta, image, href]) => `<a class="index-project-card" href
 const category = (title, intro, href, list) => `<section class="category-block"><header class="category-heading"><div><h2>${title}</h2><p>${intro}</p></div><a href="${href}">View all <span>↗</span></a></header><div class="project-card-grid count-${list.length}">${list.map(card).join('')}</div></section>`;
 
 function home() {
+  document.body.classList.add('career-home');
   const featured = [
     ['MINGDE 2021', 'event design', 'assets/pv/mingde-2021.jpg', '/mingde-2021.html'],
     ['Brewing Shanghai', 'product design', 'assets/pv/brewing-shanghai.jpg', '/visual-design.html#branding'],

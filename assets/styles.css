@@ -319,6 +319,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
 
 /* PDF-aligned career index and shared www.zhixingzhang.com navigator */
+body.career-home { background: #eeeae9; color: #161413; }
 .pv-home { min-height: 100svh; background: #eeeae9; color: #161413; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 500; }
 .portfolio-nav { position: fixed !important; z-index: 220000 !important; inset: 0 0 auto !important; width: 100%; height: 80px !important; padding: 0 126px !important; display: grid !important; grid-template-columns: 1fr auto 1fr !important; align-items: center !important; overflow: hidden !important; background: rgba(238,234,233,.86) !important; backdrop-filter: blur(14px) !important; color: #161413 !important; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; }
 .portfolio-nav .logo { justify-self: start; color: #37332e; font-size: 13px; line-height: 1; letter-spacing: -.02em; text-transform: uppercase; }
@@ -338,7 +339,7 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .pv-work-shade { position: absolute; inset: 0; background: rgba(0,0,0,.06); transition: background-color .7s ease; }
 .pv-work-copy { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; text-shadow: 0 1px 12px rgba(0,0,0,.16); }
 .pv-work-title { font-family: "Sorts Mill Goudy", Georgia, "Times New Roman", serif; font-size: clamp(18px,1.5vw,30px); font-weight: 400; line-height: 1; letter-spacing: .025em; }
-.pv-work-discipline { margin-top: 7px; font-size: clamp(8px,.68vw,12px); font-weight: 500; line-height: 1; letter-spacing: .01em; }
+.pv-work-discipline { margin-top: 7px; font-family: "Sorts Mill Goudy", Georgia, "Times New Roman", serif; font-size: clamp(8px,.68vw,12px); font-weight: 400; line-height: 1; letter-spacing: .025em; }
 .pv-work-card:hover .pv-work-image { transform: scale(1.018); }
 .pv-work-card:hover .pv-work-shade { background: rgba(0,0,0,.12); }
 
