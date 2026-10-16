@@ -339,6 +339,7 @@ body.career-home { background: #eeeae9; color: #161413; }
 .pv-work-card { position: relative; flex: 0 0 100vw; width: 100vw; height: 100%; display: block; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; background: #d8d2cf; user-select: none; -webkit-user-drag: none; }
 .pv-work-media { position: absolute; inset: 0; display: block; overflow: hidden; }
 .pv-work-image { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; user-select: none; -webkit-user-drag: none; transition: transform 1.15s cubic-bezier(.2,.8,.2,1); }
+.pv-work-video { background: #d8d2cf; }
 .pv-work-shade { position: absolute; inset: 0; background: rgba(0,0,0,.06); transition: background-color .7s ease; }
 .pv-work-copy { position: absolute; inset: 80px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; text-shadow: 0 1px 12px rgba(0,0,0,.16); }
 .pv-work-title { font-family: "Sorts Mill Goudy", Georgia, "Times New Roman", serif; font-size: clamp(18px,1.5vw,30px); font-weight: 400; line-height: 1; letter-spacing: .025em; }

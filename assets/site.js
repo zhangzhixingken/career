@@ -14,11 +14,16 @@ const category = (title, intro, href, list) => `<section class="category-block">
 function home() {
   document.body.classList.add('career-home');
   const featured = [
-    ['MINGDE 2021', 'event design', 'assets/pv/mingde-2021.jpg', '/mingde-2021/'],
+    ['MINGDE 2021', 'event design', 'mingde-2021/mingde-2021-hero.mp4', '/mingde-2021/', 'video'],
     ['Brewing Shanghai', 'product design', 'assets/pv/brewing-shanghai.jpg', '/visual-design.html#branding'],
     ['commercial photography', 'photography', 'assets/pv/commercial-photography.jpg', '/photography.html#institutional']
   ];
-  const cards = featured.map(([title, discipline, image, href], index) => `<a class="pv-work-card" href="${href}" draggable="false" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media"><img class="pv-work-image" src="${image}" alt="${title}" draggable="false"><span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`).join('');
+  const cards = featured.map(([title, discipline, source, href, type], index) => {
+    const media = type === 'video'
+      ? `<video class="pv-work-image pv-work-video" src="${source}" poster="assets/pv/mingde-2021.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>`
+      : `<img class="pv-work-image" src="${source}" alt="${title}" draggable="false">`;
+    return `<a class="pv-work-card" href="${href}" draggable="false" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media">${media}<span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`;
+  }).join('');
   const progress = featured.map(([, , ,], index) => `<button class="pv-progress-step${index === 0 ? ' is-active' : ''}" type="button" data-slide-target="${index}" aria-label="Show project ${index + 1}"><span></span></button>`).join('');
   $('#app').innerHTML = `<main class="pv-home">${nav()}<section class="pv-carousel-shell" aria-label="Selected career work"><div class="pv-work-list" tabindex="0">${cards}</div><div class="pv-carousel-footer"><div class="pv-progress">${progress}</div></div></section></main>`;
   setupHomeCarousel(featured.length);
