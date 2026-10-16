@@ -14,7 +14,7 @@ const category = (title, intro, href, list) => `<section class="category-block">
 function home() {
   document.body.classList.add('career-home');
   const featured = [
-    ['MINGDE 2021', 'event design', 'assets/pv/mingde-2021.jpg', '/mingde-2021.html'],
+    ['MINGDE 2021', 'event design', 'assets/pv/mingde-2021.jpg', '/mingde-2021/'],
     ['Brewing Shanghai', 'product design', 'assets/pv/brewing-shanghai.jpg', '/visual-design.html#branding'],
     ['commercial photography', 'photography', 'assets/pv/commercial-photography.jpg', '/photography.html#institutional']
   ];
