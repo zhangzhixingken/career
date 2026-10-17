@@ -14,8 +14,8 @@ const category = (title, intro, href, list) => `<section class="category-block">
 function home() {
   document.body.classList.add('career-home');
   const featured = [
-    ['MINGDE 2021', 'event design', 'mingde-2021/mingde-2021-hero.mp4', '/mingde-2021/', 'video'],
-    ['Brewing Shanghai', 'product design', 'assets/pv/brewing-shanghai.jpg', '/visual-design.html#branding'],
+    ['MINGDE 2021', 'event · design · video', 'mingde-2021/mingde-2021-hero.mp4', '/mingde-2021/', 'video'],
+    ['Brewing Shanghai', 'design', 'assets/pv/brewing-shanghai.jpg', '/visual-design.html#branding'],
     ['commercial photography', 'photography', 'assets/pv/commercial-photography.jpg', '/photography.html#institutional']
   ];
   const cards = featured.map(([title, discipline, source, href, type], index) => {
