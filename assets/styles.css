@@ -332,7 +332,7 @@ body.career-home { background: #eeeae9; color: #161413; }
 .portfolio-nav .nav-instagram::before { content: ""; position: absolute; inset: 3px; border: 1px solid #161413; border-radius: 50%; }
 .portfolio-nav .nav-instagram::after { content: ""; position: absolute; top: 2px; right: 2px; width: 2px; height: 2px; border-radius: 50%; background: #161413; }
 .portfolio-nav .nav-instagram-icon { display: none; }
-.pv-carousel-shell { height: 100svh; min-height: 620px; overflow: hidden; background: #eeeae9; }
+.pv-carousel-shell { position: relative; height: 100svh; min-height: 620px; overflow: hidden; background: #eeeae9; }
 .pv-work-list { width: 100vw; height: calc(100svh - 64px); min-height: 556px; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab; touch-action: pan-y; }
 .pv-work-list::-webkit-scrollbar { display: none; }
 .pv-work-list.is-dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
@@ -346,8 +346,8 @@ body.career-home { background: #eeeae9; color: #161413; }
 .pv-work-discipline { margin-top: 7px; font-family: "Sorts Mill Goudy", Georgia, "Times New Roman", serif; font-size: clamp(8px,.68vw,12px); font-weight: 400; line-height: 1; letter-spacing: .025em; }
 .pv-work-card:hover .pv-work-image { transform: scale(1.018); }
 .pv-work-card:hover .pv-work-shade { background: rgba(0,0,0,.12); }
-.pv-carousel-footer { height: 64px; display: flex; align-items: center; justify-content: center; color: #161413; }
-.pv-progress { width: 30vw; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.pv-carousel-footer { height: 64px; }
+.pv-progress { position: absolute; z-index: 3; bottom: 88px; left: 50%; width: 30vw; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; transform: translateX(-50%); }
 .pv-progress-step { position: relative; height: 12px; padding: 0; border: 0; background: transparent; cursor: pointer; overflow: hidden; }
 .pv-progress-step::before { content: ""; position: absolute; top: 5px; right: 0; left: 0; height: 1px; background: rgba(22,20,19,.22); }
 .pv-progress-step span { position: absolute; top: 5px; left: 0; width: 0; height: 1px; background: #161413; }
@@ -366,7 +366,7 @@ body.career-home { background: #eeeae9; color: #161413; }
   .pv-work-title { font-size: clamp(18px,3.4vw,26px); }
   .pv-work-discipline { font-size: 9px; }
   .pv-carousel-footer { height: 58px; }
-  .pv-progress { width: 30vw; }
+  .pv-progress { bottom: 78px; width: 30vw; }
 }
 
 @media (max-width: 520px) {
