@@ -80,5 +80,3 @@ body.career-home {background: #eeeae9; color: #161413; }
   .portfolio-nav .nav-links a {font-size: 7.2px; letter-spacing: -.035em; }
   .pv-work-title {font-size: 20px; }
 }
-.pv-work-card.is-light .pv-work-copy { color: #161413; text-shadow: none; }
-.pv-work-card.is-light .pv-work-shade { background: rgba(0,0,0,0); }

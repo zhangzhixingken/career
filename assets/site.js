@@ -1,22 +1,22 @@
 const $ = (s) => document.querySelector(s);
 const nav = (active = 'career', isHome = false) => `<nav class="site-nav portfolio-nav" aria-label="Main navigation"><a class="logo" href="${isHome ? 'https://www.zhixingzhang.com/' : '/'}">Zhixing Zhang</a><ul class="nav-links"><li><a href="https://www.zhixingzhang.com/arts.html">Arts</a></li><li><a class="${active === 'career' ? 'is-active' : ''}" href="/">Career</a></li><li><a class="${active === 'about' ? 'is-active' : ''}" href="/about/">About</a></li><li><a href="https://www.zhixingzhang.com/contact.html">Contact</a></li></ul><div class="nav-docs" aria-label="Social media"><a class="nav-instagram" href="https://www.instagram.com/zhixing_gallery/" target="_blank" rel="noopener" aria-label="Visit Zhixing Zhang’s Instagram"><span class="nav-instagram-icon" aria-hidden="true"></span></a></div></nav>`;
 
-// [title, discipline, media, href, type, poster, tone]
+// [title, discipline, media, href, type, poster]
 const featured = [
   ['MINGDE 2021', 'event · design · video', 'mingde-2021/mingde-2021-hero.mp4', '/mingde-2021/', 'video', 'assets/pv/mingde-2021.jpg'],
   ['Brewing Shanghai', 'design', 'assets/pv/brewing-shanghai.jpg', '/brewing-shanghai/', 'image'],
   ['Commercial Photography', 'photography', 'assets/pv/commercial-photography.jpg', '/commercial-photography/', 'image'],
-  ['Departures', 'AIGC', 'departures/media/hero.mp4', '/departures/', 'video', 'departures/media/hero-poster.jpg'],
-  ['MAPStudio Branding', 'design', 'assets/pv/mapstudio-branding.jpg', '/mapstudio-branding/', 'image', '', 'light']
+  ['Animation Video', 'AIGC', 'animation-video/media/hero.mp4', '/animation-video/', 'video', 'animation-video/media/hero-poster.jpg'],
+  ['MAPStudio Branding', 'design', 'assets/pv/mapstudio-branding.jpg', '/mapstudio-branding/', 'image']
 ];
 
 function home() {
   document.body.classList.add('career-home');
-  const cards = featured.map(([title, discipline, source, href, type, poster, tone], index) => {
+  const cards = featured.map(([title, discipline, source, href, type, poster], index) => {
     const media = type === 'video'
       ? `<video class="pv-work-image pv-work-video" src="${source}" poster="${poster}" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>`
       : `<img class="pv-work-image" src="${source}" alt="${title}" draggable="false"${index ? ' loading="lazy"' : ''}>`;
-    return `<a class="pv-work-card${tone === 'light' ? ' is-light' : ''}" href="${href}" draggable="false" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media">${media}<span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`;
+    return `<a class="pv-work-card" href="${href}" draggable="false" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media">${media}<span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`;
   }).join('');
   const progress = featured.map((_, index) => `<button class="pv-progress-step${index === 0 ? ' is-active' : ''}" type="button" data-slide-target="${index}" aria-label="Show project ${index + 1}"><span></span></button>`).join('');
   $('#app').innerHTML = `<main class="pv-home">${nav('career', true)}<section class="pv-carousel-shell" aria-label="Selected career work"><div class="pv-work-list" tabindex="0">${cards}</div><div class="pv-progress" style="--steps:${featured.length}">${progress}</div><div class="pv-carousel-footer" aria-hidden="true"></div></section></main>`;
