@@ -92,3 +92,8 @@ body.career-project{margin:0;background:var(--paper);color:var(--ink);font-famil
 .p-grid.is-tall img{aspect-ratio:9/16}
 .p-grid.is-contained{width:min(1100px,calc(100% - 2 * var(--gutter)))}
 .p-dark-end{padding-bottom:clamp(110px,12vw,190px)}
+/* Edge-to-edge photo rows: images share a row height in proportion to their aspect ratios, so nothing is cropped. */
+.p-bleed{display:flex;flex-direction:column}
+.p-row{display:flex}
+.p-row img{flex:var(--ar) 1 0;width:0;min-width:0;height:auto;aspect-ratio:var(--ar);object-fit:cover}
+@media(max-width:800px){.p-row{flex-direction:column}.p-row img{flex:none;width:100%}}
