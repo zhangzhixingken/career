@@ -4,7 +4,7 @@ Static portfolio for GitHub Pages.
 
 ## Publish updates
 
-1. Edit the HTML, `assets/site.js`, `assets/styles.css`, or add optimized images to `assets/work/`.
+1. Edit the HTML, `assets/site.js`, `assets/styles.css`, or add optimized images to each project's `media/` folder. Project pages are plain HTML (`/<project>/index.html`) styled by `assets/project.css`.
 2. Commit and push to the `main` branch.
 3. In GitHub: **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, then select `main` and `/ (root)`.
 
@@ -12,7 +12,7 @@ The `CNAME` file keeps `career.zhixingzhang.com` attached to the site. Do not re
 
 ## Local preview
 
-You can double-click `index.html` directly. All project links will work from local files too.
+Pages use root-relative links, so preview them through a local server (below) rather than opening the files directly.
 
 For a closer simulation of the final website, open Terminal inside this folder and run:
 
