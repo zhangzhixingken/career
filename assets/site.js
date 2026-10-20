@@ -1,5 +1,4 @@
 const $ = (s) => document.querySelector(s);
-const nav = (active = 'career', isHome = false) => `<nav class="site-nav portfolio-nav" aria-label="Main navigation"><a class="logo" href="${isHome ? 'https://www.zhixingzhang.com/' : '/'}">Zhixing Zhang</a><ul class="nav-links"><li><a href="https://www.zhixingzhang.com/arts.html">Arts</a></li><li><a class="${active === 'career' ? 'is-active' : ''}" href="/">Career</a></li><li><a class="${active === 'about' ? 'is-active' : ''}" href="/about/">About</a></li><li><a href="https://www.zhixingzhang.com/contact.html">Contact</a></li></ul><div class="nav-docs" aria-label="Social media"><a class="nav-instagram" href="https://www.instagram.com/zhixing_gallery/" target="_blank" rel="noopener" aria-label="Visit Zhixing Zhang’s Instagram"><span class="nav-instagram-icon" aria-hidden="true"></span></a></div></nav>`;
 
 // [title, discipline, media, href, type, poster]
 const featured = [
@@ -19,7 +18,7 @@ function home() {
     return `<a class="pv-work-card" href="${href}" draggable="false" data-slide="${index}" aria-label="${title}, ${discipline}"><span class="pv-work-media">${media}<span class="pv-work-shade"></span><span class="pv-work-copy"><span class="pv-work-title">${title}</span><span class="pv-work-discipline">${discipline}</span></span></span></a>`;
   }).join('');
   const progress = featured.map((_, index) => `<button class="pv-progress-step${index === 0 ? ' is-active' : ''}" type="button" data-slide-target="${index}" aria-label="Show project ${index + 1}"><span></span></button>`).join('');
-  $('#app').innerHTML = `<main class="pv-home">${nav('career', true)}<section class="pv-carousel-shell" aria-label="Selected career work"><div class="pv-work-list" tabindex="0">${cards}</div><div class="pv-progress" style="--steps:${featured.length}">${progress}</div><div class="pv-carousel-footer" aria-hidden="true"></div></section></main>`;
+  $('#app').innerHTML = `<main class="pv-home"><section class="pv-carousel-shell" aria-label="Selected career work"><div class="pv-work-list" tabindex="0">${cards}</div><div class="pv-progress" style="--steps:${featured.length}">${progress}</div><div class="pv-carousel-footer" aria-hidden="true"></div></section></main>`;
   setupHomeCarousel(featured.length);
 }
 
