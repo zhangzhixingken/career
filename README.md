@@ -31,3 +31,15 @@ After enabling Pages, set one DNS record:
 | CNAME | `career` | `zhangzhixingken.github.io` |
 
 In the repository Pages settings, set the custom domain to `career.zhixingzhang.com` and enable **Enforce HTTPS** when it becomes available.
+
+## Navigation bar, favicon and share previews
+
+The navigation bar is shared with www.zhixingzhang.com: its style and behaviour load from
+`https://www.zhixingzhang.com/assets/nav/nav.css` and `nav.js`. The nav markup, favicon links
+and Open Graph tags in every page are written by the script in the www repository:
+
+```bash
+python3 ../zhangzhixingken.github.io/tools/sync-shared.py . --career
+```
+
+Share-preview images (1200 × 630) are in `assets/og/`.
