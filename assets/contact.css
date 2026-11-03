@@ -459,3 +459,18 @@ html.is-zh .c-brief-head h1 { letter-spacing: 0; }
   .c-brief .c-lang { top: 62px; }
   .c-reach { flex-direction: column; align-items: center; gap: 16px; margin-top: 24px; }
 }
+
+/* Review: waiting for the client to send */
+.c-pending {
+  display: inline-block;
+  margin: 30px 0 0;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: #ead9bf;
+  color: #7a5a2e;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: .04em;
+}
+.c-pending + .c-group-title { margin-top: 18px; }

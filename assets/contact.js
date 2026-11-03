@@ -52,6 +52,7 @@
     subject: T("Project brief", "项目需求"),
     notFixed: T("Not fixed yet", "待定"),
     previewEmpty: T("Your answers appear here as you go.", "填写的内容会实时显示在这里。"),
+    pending: T("Pending", "等待您的操作"),
     reviewTitle: T("Check the brief, then send it.", "确认简报内容后发送。"),
     noteEmail: () => T(`This opens a new email to ${CONFIG.email} with the brief already filled in. Press Send in your email app and it reaches me.`, `点击后会打开你的邮件应用，新邮件已填好收件人 ${CONFIG.email} 和简报内容，在邮件里点「发送」即可送达。`),
     noteEndpoint: T("The brief comes straight to me; I reply through the contact you chose.", "提交后简报会直接发送给我，我会通过你选择的方式回复。"),
@@ -324,6 +325,7 @@
 
   const renderReview = (container) => {
     const brief = buildBrief();
+    container.append(el("p", { class: "c-pending", role: "status", text: t(TEXT.pending) }));
     container.append(el("p", { class: "c-group-title", text: t(TEXT.reviewTitle) }));
 
     const bar = el("div", { class: "c-nav c-review-actions" });
