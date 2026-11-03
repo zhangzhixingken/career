@@ -33,7 +33,7 @@
     back: T("Back", "上一步"),
     review: T("Review brief", "预览简报"),
     send: T("Send brief", "提交需求"),
-    email: T("Email this brief", "通过邮件发送"),
+    email: T("Send by email", "通过邮件发送"),
     emailAlt: T("Send by email instead", "改用邮件发送"),
     copy: T("Copy brief", "复制简报"),
     restart: T("Start over", "重新填写"),
@@ -53,10 +53,11 @@
     notFixed: T("Not fixed yet", "待定"),
     previewEmpty: T("Your answers appear here as you go.", "填写的内容会实时显示在这里。"),
     reviewTitle: T("Check the brief, then send it.", "确认简报内容后发送。"),
-    noteEmail: () => T(`Your email app opens with the brief filled in. If it doesn’t, copy the brief and send it to ${CONFIG.email}.`, `点击后将打开邮件应用并自动填入简报；若没有打开，请复制简报发送至 ${CONFIG.email}。`),
+    noteEmail: () => T(`This opens a new email to ${CONFIG.email} with the brief already filled in. Press Send in your email app and it reaches me.`, `点击后会打开你的邮件应用，新邮件已填好收件人 ${CONFIG.email} 和简报内容，在邮件里点「发送」即可送达。`),
     noteEndpoint: T("The brief comes straight to me; I reply through the contact you chose.", "提交后简报会直接发送给我，我会通过你选择的方式回复。"),
     noteWechat: () => T(`Or copy it and send it on WeChat: ${CONFIG.wechat}`, `也可以复制后通过微信发送：${CONFIG.wechat}`),
-    statusEmail: () => T(`Opening your email app… If nothing opened, copy the brief and send it to ${CONFIG.email}.`, `正在打开邮件应用……如果没有打开，请复制简报发送至 ${CONFIG.email}。`),
+    statusEmail: T("Opening your email app — press Send there to deliver the brief.", "正在打开邮件应用，请在新邮件里点「发送」。"),
+    statusNoMail: () => T(`No email app opened on this device. Copy the brief and send it to ${CONFIG.email} from any mailbox, or by WeChat.`, `这台设备没有打开邮件应用。请复制简报，用任意邮箱发送至 ${CONFIG.email}，或通过微信发送。`),
     statusCopied: T("Brief copied — paste it into an email or WeChat.", "简报已复制，可粘贴到邮件或微信发送。"),
     statusSent: (ref) => T(`Sent — thank you. Your reference is ${ref}.`, `已提交，谢谢。你的编号是 ${ref}。`),
     statusFailed: T("That didn’t go through. Email or copy the brief instead.", "提交未成功，请改用邮件发送或复制简报。"),
@@ -518,8 +519,21 @@
       }
       body = chars.slice(0, low).join("").replace(/\s+$/, "") + tail;
     }
-    status(TEXT.statusEmail());
+    status(TEXT.statusEmail);
+    // If no mail app takes the mailto link, the page keeps focus; then point to the copy route.
+    let left = false;
+    const onLeave = () => { left = true; };
+    window.addEventListener("blur", onLeave, { once: true });
+    document.addEventListener("visibilitychange", onLeave, { once: true });
     window.location.href = base + encodeURIComponent(body);
+    window.setTimeout(() => {
+      window.removeEventListener("blur", onLeave);
+      document.removeEventListener("visibilitychange", onLeave);
+      if (!left && document.hasFocus()) {
+        status(TEXT.statusNoMail());
+        form.querySelector('[data-action="copy"]')?.focus();
+      }
+    }, 1600);
   };
 
   const sendEndpoint = async (button) => {
