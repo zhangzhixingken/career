@@ -1,5 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Portfolio of visual designer Zhixing Zhang."><title>Zhixing Zhang — Visual Designer</title><link rel="stylesheet" href="assets/styles.css?v=20261103-1">
+<style>
+/* Career home only: the nav sits over the full-screen carousel with no background.
+   Layout, type and links still come from the shared nav.css. */
+body .site-nav { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+body.nav-menu-open .site-nav { background: var(--snav-menu-bg); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+</style>
 <!-- shared-head:start -->
 <link rel="canonical" href="https://career.zhixingzhang.com/">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
