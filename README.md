@@ -10,6 +10,18 @@ Static portfolio for GitHub Pages.
 
 The `CNAME` file keeps `career.zhixingzhang.com` attached to the site. Do not remove it.
 
+## Contact page
+
+`/contact/` lists services and builds a structured client brief (photography, video, design → schedule, budget, usage → contact). By default the brief is sent through the visitor's email app or copied for WeChat; nothing is stored on a server.
+
+Settings live at the top of `assets/contact.js`:
+
+- `email` — where briefs go.
+- `endpoint` — optional form-service URL. When set, a **Send brief** button posts the brief there (JSON) and email/copy stay as fallbacks. Test it from a mainland-China connection before relying on it.
+- `wechat` — optional WeChat ID shown on the review step.
+
+Each project page ends with a “Contact about similar work” link that pre-selects the matching service (`/contact/?service=video`).
+
 ## Local preview
 
 Pages use root-relative links, so preview them through a local server (below) rather than opening the files directly.

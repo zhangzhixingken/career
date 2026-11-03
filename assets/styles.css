@@ -61,3 +61,7 @@ body.career-home {background: #eeeae9; color: #161413; }
 
   .pv-work-title {font-size: 20px; }
 }
+
+/* Contact link at the end of each project page */
+.contact-cta {display: block; padding: 0 7vw clamp(70px, 8vw, 120px); text-align: center; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: rgba(22,20,19,.62); transition: color .2s ease; }
+.contact-cta:hover {color: #161413; }
