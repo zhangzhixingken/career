@@ -474,3 +474,26 @@ html.is-zh .c-brief-head h1 { letter-spacing: 0; }
   letter-spacing: .04em;
 }
 .c-pending + .c-group-title { margin-top: 18px; }
+
+/* One-page brief (2026-11-03) */
+.c-opt { margin-left: 10px; font-family: var(--sans); font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); vertical-align: 3px; }
+html.is-zh .c-opt { letter-spacing: .04em; }
+.c-detail[hidden] { display: none; }
+.c-detail .c-group-title { margin-top: 52px; }
+.c-hint-block { margin: 10px 0 0; }
+.c-step > .c-field:first-child { margin-top: 0; }
+
+.c-send .c-pending { margin-top: 0; }
+.c-send-title { margin: 18px 0 0; font-family: var(--serif); font-size: clamp(30px, 3vw, 46px); font-weight: 400; line-height: 1.1; }
+.c-send-title:focus { outline: none; }
+html.is-zh .c-send-title { font-size: clamp(26px, 2.4vw, 38px); line-height: 1.3; }
+.c-send-lead { max-width: 620px; margin: 18px 0 0; font-size: 15px; line-height: 1.7; }
+.c-routes { margin: 34px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.c-routes li { display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; line-height: 1.6; }
+.c-routes strong { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.c-routes .c-link { align-self: flex-start; padding: 4px 0; text-transform: none; letter-spacing: 0; font-size: 13px; color: var(--ink); border-bottom: 1px solid var(--line); }
+.c-routes .c-link:hover { border-bottom-color: var(--ink); }
+.c-status { font-weight: 500; }
+@media (max-width: 840px) {
+  .c-routes { grid-template-columns: 1fr; gap: 20px; }
+}
