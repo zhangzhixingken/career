@@ -419,3 +419,43 @@ input[type="date"].c-input { min-height: 49px; }
   .c-step.is-active { animation: none; }
   .c-service-media img { transition: none; }
 }
+
+/* First screen: title, the two direct links, then the brief. */
+.c-brief { position: relative; padding-top: 150px; }
+.c-brief-head h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(44px, 5.6vw, 88px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.025em;
+}
+html.is-zh .c-brief-head h1 { letter-spacing: 0; }
+.c-reach {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 36px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.c-reach a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--ink);
+  transition: color .18s ease;
+}
+.c-reach a:hover, .c-reach a:focus-visible { color: var(--muted); outline: none; }
+.c-reach svg { width: 14px; height: 14px; flex: 0 0 14px; }
+.c-brief .c-lang { top: 104px; }
+.c-brief-layout { margin-top: clamp(44px, 5vw, 72px); }
+.c-steps { margin-bottom: 36px; }
+@media (max-width: 840px) {
+  .c-brief { padding-top: 104px; }
+  .c-brief .c-lang { top: 62px; }
+  .c-reach { flex-direction: column; align-items: center; gap: 16px; margin-top: 24px; }
+}

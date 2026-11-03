@@ -66,7 +66,7 @@
   };
 
   // ── Brief schema ────────────────────────────────────────────────────────
-  const SERVICES = [opt("photography", "Photography", "摄影"), opt("video", "Video", "影像"), opt("design", "Design", "设计")];
+  const SERVICES = [opt("photography", "Photography", "摄影"), opt("video", "Video", "影像"), opt("design", "Design", "设计"), opt("other", "Other", "其他")];
 
   const BUDGETS = {
     CNY: [opt("c1", "Under ¥5,000", "¥5,000 以下"), opt("c2", "¥5,000–15,000"), opt("c3", "¥15,000–30,000"), opt("c4", "¥30,000–60,000"), opt("c5", "Over ¥60,000", "¥60,000 以上")],
@@ -77,7 +77,7 @@
   const has = (service) => (state) => (state.services || []).includes(service);
 
   const F = {
-    services: { type: "many", large: true, required: true, label: T("What do you need?", "需要哪些服务？"), hint: TEXT.many, short: T("Services", "服务"), options: SERVICES },
+    services: { type: "many", large: true, required: true, label: T("Photography, video, design — or something else?", "摄影、影像、设计，还是其他？"), hint: TEXT.many, short: T("Services", "服务"), options: SERVICES },
     summary: { type: "text", required: true, max: 160, label: T("The project in one line", "用一句话描述项目"), short: T("Summary", "概述"), placeholder: T("e.g. Event film and photos for a product launch in March", "例如：三月新品发布会的活动影片与照片") },
 
     photoType: { type: "one", required: true, when: has("photography"), label: T("What kind of photography?", "拍摄类型"), short: T("Type", "类型"),
@@ -104,6 +104,7 @@
 
     designType: { type: "many", required: true, when: has("design"), label: T("What needs designing?", "设计内容"), hint: TEXT.many, short: T("Scope", "内容"),
       options: [opt("identity", "Visual identity", "视觉识别"), opt("packaging", "Packaging & product", "包装与产品"), opt("event", "Event visual system", "活动视觉系统"), opt("print", "Print & publication", "印刷与出版物"), opt("digital", "Social & digital assets", "社交与数字物料"), opt("other", "Other", "其他")] },
+    otherScope: { type: "textarea", required: true, when: has("other"), label: T("What do you have in mind?", "你想做什么？"), short: T("Request", "需求"), placeholder: T("e.g. an installation, a workshop, art direction", "例如：装置、工作坊、艺术指导") },
     designGuidelines: { type: "one", when: has("design"), label: T("Do you have brand guidelines?", "是否已有品牌规范？"), short: T("Guidelines", "品牌规范"),
       options: [opt("yes", "Yes", "有"), opt("partly", "Partly", "部分有"), opt("no", "No", "没有")] },
 
@@ -133,7 +134,8 @@
     ["services", "summary"],
     [GROUP("photography", T("Photography", "摄影")), "photoType", "photoCoverage", "photoImages", "photoExtras",
      GROUP("video", T("Video", "影像")), "videoType", "videoLength", "videoFilming", "videoRatios", "videoPlatforms", "videoExtras",
-     GROUP("design", T("Design", "设计")), "designType", "designGuidelines"],
+     GROUP("design", T("Design", "设计")), "designType", "designGuidelines",
+     GROUP("other", T("Other", "其他")), "otherScope"],
     [["date", "deadline"], "city", "cityOther", "venue", "budget", "usage"],
     [["name", "org"], ["email", "wechat"], ["phone", "preferred"], "references", "notes"],
     "review"
@@ -412,6 +414,7 @@
     if (has("photography")(state)) push(T("Photography", "摄影"), ["photoType", "photoCoverage", "photoImages", "photoExtras"]);
     if (has("video")(state)) push(T("Video", "影像"), ["videoType", "videoLength", "videoFilming", "videoRatios", "videoPlatforms", "videoExtras"]);
     if (has("design")(state)) push(T("Design", "设计"), ["designType", "designGuidelines"]);
+    if (has("other")(state)) push(T("Other", "其他"), ["otherScope"]);
     push(T("When & budget", "时间与预算"), ["date", "deadline", "city", "cityOther", "venue", "budget", "usage"]);
     push(T("Contact", "联系方式"), ["name", "org", "email", "wechat", "phone", "preferred"]);
     push(T("Direction", "方向"), ["references", "notes"]);
