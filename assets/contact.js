@@ -90,7 +90,7 @@
 
     name: { type: "text", autocomplete: "name", label: T("Name", "姓名"), short: T("Name", "姓名") },
     email: { type: "email", autocomplete: "email", label: T("Email", "邮箱"), short: T("Email", "邮箱") },
-    wechat: { type: "text", label: T("WeChat ID", "微信号"), short: T("WeChat", "微信") },
+    wechat: { type: "text", label: T("WeChat", "微信号"), short: T("WeChat", "微信") },
     phone: { type: "tel", autocomplete: "tel", label: T("Phone", "电话"), short: T("Phone", "电话") },
 
     notes: { type: "textarea", label: T("Anything else?", "其他补充"), short: T("Notes", "补充"), placeholder: T("Dates, location, references, anything that helps.", "时间、地点、参考链接，任何有帮助的信息。") }
@@ -240,8 +240,8 @@
     box.append(field("budget"));
     box.append(el("p", { class: "c-group-title", text: t(TEXT.sectionContact) }));
     box.append(el("p", { class: "c-hint c-hint-block", text: t(TEXT.contactHint) }));
-    box.append(el("div", { class: "c-inline" }, [field("name"), field("email")]));
-    box.append(el("div", { class: "c-inline" }, [field("wechat"), field("phone")]));
+    box.append(el("div", { class: "c-inline c-inline-1" }, [field("name")]));
+    box.append(el("div", { class: "c-inline c-inline-3" }, [field("email"), field("wechat"), field("phone")]));
     box.append(field("notes"));
     box.append(el("div", { class: "c-nav" }, el("button", { type: "submit", class: "c-btn", text: t(TEXT.next) })));
     return box;

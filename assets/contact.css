@@ -292,6 +292,8 @@ input[type="date"].c-input { min-height: 49px; }
 
 .c-inline { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
 .c-inline .c-field { margin-top: 34px; }
+.c-inline-1 { grid-template-columns: 1fr; }
+.c-inline-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 22px; }
 .c-check { display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 13px; color: var(--muted); cursor: pointer; }
 .c-check input { width: 15px; height: 15px; margin: 0; accent-color: var(--ink); }
 
@@ -404,7 +406,7 @@ input[type="date"].c-input { min-height: 49px; }
   .c-process ol { grid-template-columns: 1fr 1fr; gap: 56px 18px; }
   .c-steps { gap: 6px 16px; margin-bottom: 40px; }
   .c-steps button span { display: none; }
-  .c-inline { grid-template-columns: 1fr; }
+  .c-inline, .c-inline-3 { grid-template-columns: 1fr; }
   .c-review-brief { padding: 22px 20px; }
   .c-nav { gap: 16px; }
   .c-footer { flex-direction: column; gap: 14px; }
