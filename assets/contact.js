@@ -60,7 +60,7 @@
   };
 
   // ── Questions ───────────────────────────────────────────────────────────
-  const SERVICES = [opt("photography", "Photography", "摄影"), opt("video", "Video", "影像"), opt("design", "Design", "设计"), opt("other", "Other", "其他")];
+  const SERVICES = [opt("photography", "Photography", "摄影"), opt("video", "Video", "视频"), opt("design", "Design", "设计"), opt("other", "Other", "其他")];
   const BUDGETS = {
     CNY: [opt("c1", "Under ¥5,000", "¥5,000 以下"), opt("c2", "¥5,000–15,000"), opt("c3", "¥15,000–30,000"), opt("c4", "¥30,000–60,000"), opt("c5", "Over ¥60,000", "¥60,000 以上")],
     USD: [opt("u1", "Under $1,000", "$1,000 以下"), opt("u2", "$1,000–3,000"), opt("u3", "$3,000–8,000"), opt("u4", "$8,000–15,000"), opt("u5", "Over $15,000", "$15,000 以上")]
@@ -69,7 +69,7 @@
   const has = (service) => (state) => (state.services || []).includes(service);
 
   const F = {
-    services: { type: "many", large: true, required: true, label: T("Photography, video, design — or something else?", "摄影、影像、设计，还是其他？"), hint: TEXT.many, short: T("Services", "服务"), options: SERVICES },
+    services: { type: "many", large: true, required: true, label: T("Photography, video, design — or something else?", "摄影、视频、设计，还是其他？"), hint: TEXT.many, short: T("Services", "服务"), options: SERVICES },
 
     photoType: { type: "one", group: "photography", label: T("What kind of photography?", "拍摄类型"), short: T("Type", "类型"),
       options: [opt("event", "Event", "活动"), opt("space", "Architecture & space", "建筑与空间"), opt("product", "Product & still life", "产品与静物"), opt("portrait", "Portrait & team", "人像与团队"), opt("campaign", "Campaign & editorial", "品牌与编辑"), opt("other", "Other", "其他")] },
@@ -98,7 +98,7 @@
 
   const GROUPS = [
     { service: "photography", label: T("Photography", "摄影"), fields: ["photoType", "photoCoverage"] },
-    { service: "video", label: T("Video", "影像"), fields: ["videoType", "videoLength"] },
+    { service: "video", label: T("Video", "视频"), fields: ["videoType", "videoLength"] },
     { service: "design", label: T("Design", "设计"), fields: ["designType"] },
     { service: "other", label: T("Other", "其他"), fields: ["otherScope"] }
   ];
